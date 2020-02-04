@@ -22,3 +22,10 @@
   (testing "nil value"
     (is (nil? (harishchandra nil))))
   )
+(deftest yudishtira-test
+  (testing "true value"
+    (is (= 2 (yudishtira 2))))
+  (testing "falsy value"
+    (is (= :ashwathama (yudishtira false))))
+  (testing "falsy value"
+    (is (= :ashwathama (yudishtira nil)))))

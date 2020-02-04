@@ -4,7 +4,7 @@
   "Returns the result of x/y unless y is 0. Returns nil when y is 0"
   {:level        :easy
    :use          '[when-not zero?]
-   :implemented? false}
+   :implemented? true}
   [x y]
   (when-not (zero? y)
     (/ x y))
@@ -14,7 +14,7 @@
   "Returns the result of x/y unless y is 0. Returns :infinite when y is 0"
   {:level        :easy
    :use          '[if-not zero?]
-   :implemented? false}
+   :implemented? true}
   [x y]
   (if-not (zero? y)
          (/ x y)
@@ -25,7 +25,7 @@
   Falsy values(false and nil) return nil"
   {:level        :easy
    :use          '[when-let]
-   :implemented? false}
+   :implemented? true}
   [x]
   (when-let [value x] value))
 
@@ -34,8 +34,11 @@
   Falsy values(false and nil) return :ashwathama"
   {:level        :easy
    :use          '[if-let]
-   :implemented? false}
-  [x])
+   :implemented? true}
+  [x]
+  (if-let [value x]
+    value
+    :ashwathama))
 
 (defn duplicate-first
   "Returns coll with the first element duplicated.
