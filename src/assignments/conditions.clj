@@ -6,8 +6,7 @@
    :use          '[when-not zero?]
    :implemented? false}
   [x y]
-  (if (= y 0)
-    nil
+  (when-not (zero? y)
     (/ x y))
   )
 
@@ -17,9 +16,9 @@
    :use          '[if-not zero?]
    :implemented? false}
   [x y]
-  (if (= y 0)
-         :infinite
-         (/ x y)))
+  (if-not (zero? y)
+         (/ x y)
+         :infinite))
 
 (defn harishchandra
   "Only returns truthy values as themselves.
