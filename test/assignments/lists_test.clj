@@ -48,3 +48,37 @@
 (deftest max-three-digit-sequence-test
   (testing "max 3 digit sequence"
     (is (= [2 -1 2] (max-three-digit-sequence [1 2 -1 2 0])))))
+
+(deftest transpose-test
+  (testing "row column transformation"
+    (is (= [[1 1] [2 2] [3 3]] (transpose [[1 2 3] [1 2 3]])))))
+
+(deftest difference-test
+  (testing "difference of two vectors"
+    (is (= '(3) (difference [1 2] [1 2 3])))))
+
+(deftest third-or-fifth-test
+  (testing "third-or-fifth"
+    (is (= [1 4 2 7] (third-or-fifth [1 2 8 4 15 2 7])))))
+
+(deftest sqr-of-the-first-test
+  (testing "squaring first number in list"
+    (is (= [16 16 16] (sqr-of-the-first [4 6 7])))))
+
+(deftest muted-thirds-test
+  (testing "muted-thirds"
+    (is (= [1 2 0 4 15 0 7] (muted-thirds [1 2 8 4 15 2 7])))))
+
+(deftest palindrome
+  (testing "empty list"
+    (is (true? (palindrome? []))))
+  (testing "palindrome list"
+    (is (true? (palindrome? [1 2 3 2 1]))))
+  (testing "non palindrome list"
+    (is (false? (palindrome? [1 2 3 1])))))
+
+(deftest index-of-test
+  (testing "when element present in the list"
+    (is (= 1 (index-of [1 2 3] 2))))
+  (testing "when element is not present"
+    (is (= -1 (index-of [1 2 3 1] 4)))))

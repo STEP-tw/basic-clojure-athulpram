@@ -136,7 +136,7 @@
   {:level        :medium
    :use          '[map next nnext max-key partial apply + if ->>]
    :dont-use     '[loop recur partition]
-   :implemented? false}
+   :implemented? true}
   [coll]
   (:list (apply max-key :sum (map (fn [a b c] {:sum (+ a b c) :list [a b c]})
                                   coll
@@ -147,12 +147,13 @@
 (def
   ^{:level        :easy
     :dont-use     '[loop recur for nth get]
-    :implemented? false}
+    :implemented? true}
   transpose
   "Transposes a given matrix.
   [[a b] [c d]] => [[a c] [b d]].
   Note this is a def. Not a defn.
-  Return a vector of vectors, not list of vectors or vectors of lists")
+  Return a vector of vectors, not list of vectors or vectors of lists"
+  (partial apply map vector))
 
 (defn difference
   "Given two collections, returns only the elements that are present
@@ -160,8 +161,9 @@
   {:level        :easy
    :use          '[remove set]
    :dont-use     '[loop recur if]
-   :implemented? false}
-  [coll1 coll2])
+   :implemented? true}
+  [coll1 coll2]
+  (remove (set coll1) (set coll2)))
 
 (defn union
   "Given two collections, returns a new collection with elements from the second
@@ -207,8 +209,9 @@
   elements whose index is either divisible by three or five"
   {:level        :easy
    :use          '[keep-indexed when :optionally map-indexed filter]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (keep-indexed #(if (or ((fn [x y] (zero? (mod x y))) %1 3) ((fn [x y] (zero? (mod x y))) %1 5)) %2) coll))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the
@@ -217,8 +220,10 @@
   [4 5 6] => [16 16 16]"
   {:level        :easy
    :use          '[map constantly let]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (let [sqrt (* (first coll) (first coll))]
+    (map (constantly sqrt) coll)))
 
 (defn russian-dolls
   "Given a collection and a number, wrap each element in a nested vector
@@ -249,16 +254,22 @@
   {:level        :easy
    :use          '[map cycle]
    :dont-use     '[loop recur map-indexed take take-nth]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (map * (cycle [1 1 0]) coll))
 
 (defn palindrome?
   "Implement a recursive palindrome check of any given sequence"
   {:level        :easy
    :use          '[empty? loop recur butlast rest]
    :dont-use     '[reverse]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (loop [coll coll]
+    (cond
+      (empty? coll) true
+      (not= (last coll) (first coll)) false
+      :else (recur (rest (butlast coll))))))
 
 (defn index-of
   "index-of takes a sequence and an element and finds the index
@@ -267,8 +278,14 @@
   {:level        :easy
    :use          '[loop recur rest]
    :dont-use     '[.indexOf memfn]
-   :implemented? false}
-  [coll n])
+   :implemented? true}
+  [coll n]
+  (loop [coll coll
+         count -1]
+    (cond
+      (empty? coll) -1
+      (= n (first coll)) (inc count)
+      :else (recur (rest coll) (inc count)))))
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."
