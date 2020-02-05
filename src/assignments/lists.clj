@@ -18,7 +18,14 @@
    :use          '[loop recur]
    :dont-use     '[filter]
    :implemented? false}
-  [pred coll])
+  [pred coll]
+  (loop [coll coll
+         result []]
+    (if (empty? coll) result
+                      (let [x (first coll)]
+                        (if (pred x)
+                          (recur (rest coll) (conj result x))
+                          (recur (rest coll) result))))))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
@@ -38,7 +45,10 @@
    :use          '[loop recur]
    :dont-use     '[count]
    :implemented? false}
-  ([coll]))
+  ([coll] (loop [xs coll
+                 count 0]
+            (if (empty? xs) count
+                            (recur (rest xs) (inc count))))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
