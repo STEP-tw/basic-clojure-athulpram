@@ -17,7 +17,7 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[filter]
-   :implemented? false}
+   :implemented? true}
   [pred coll]
   (loop [coll coll
          result []]
