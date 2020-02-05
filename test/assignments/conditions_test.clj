@@ -22,6 +22,7 @@
   (testing "nil value"
     (is (nil? (harishchandra nil))))
   )
+
 (deftest yudishtira-test
   (testing "true value"
     (is (= 2 (yudishtira 2))))
@@ -29,3 +30,23 @@
     (is (= :ashwathama (yudishtira false))))
   (testing "falsy value"
     (is (= :ashwathama (yudishtira nil)))))
+
+(deftest duplicate-first-test
+  (testing "in a list"
+    (is (= `(1 1 2) (duplicate-first '(1 2)))))
+  (testing "in an vector"
+    (is (= [1 1 2] (duplicate-first [1 2]))))
+  (testing "empty list"
+    (is (nil? (duplicate-first '()))))
+  (testing "empty vector"
+    (is (nil? (duplicate-first [])))))
+
+(deftest five-point-someone-test
+  (testing "y is 5"
+    (is (= :chetan-bhagat (five-point-someone 3 5))))
+  (testing "x is 5"
+    (is (= :satan-bhagat (five-point-someone 5 3))))
+  (testing "x is greater than y"
+    (is (= :greece (five-point-someone 6 3))))
+  (testing "y is greater than x"
+    (is (= :universe (five-point-someone 4 6)))))
