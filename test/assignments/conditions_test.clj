@@ -64,3 +64,12 @@
 (deftest repeat-and-truncate-test
   (testing "repeat and truncate"
     (is (= [0 1 2 3 0 1 2] (repeat-and-truncate (range 4) true true 7)))))
+
+(deftest order-in-words-test
+  (testing "6 > 3 > 1"
+    (is (= [:x-greater-than-y :y-greater-than-z] (order-in-words 6 3 1) )))
+  (testing "1 < 2 < 3"
+    (is (= [:z-greater-than-x] (order-in-words 1 2 3) )))
+  (testing "empty"
+    (is (= [] (order-in-words 1 1 1) )))
+  )
