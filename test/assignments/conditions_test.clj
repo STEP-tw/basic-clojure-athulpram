@@ -50,3 +50,13 @@
     (is (= :greece (five-point-someone 6 3))))
   (testing "y is greater than x"
     (is (= :universe (five-point-someone 4 6)))))
+
+(deftest conditions-apply-test
+  (testing "wonder woman case"
+    (is (= :wonder-woman (conditions-apply [1 3]))))
+  (testing "durga case"
+    (is (= :durga (conditions-apply [:a :b :c :d]))))
+  (testing "wonder woman case"
+    (is (= :cleopatra (conditions-apply [[2 3] [4 5] [0 0]]))))
+  (testing "default case"
+    (is (= :tuntun (conditions-apply [])))))

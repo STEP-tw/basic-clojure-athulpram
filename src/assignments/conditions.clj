@@ -76,7 +76,17 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? false}
-  [coll])
+  [coll]
+  (condp
+    (fn [l c]
+      (-> (set l)
+          (filter c)
+          (= l)))
+    coll
+    (list 1 3) :wonder-woman
+    (list :a :b :c) :durga
+    (list [2 3] [4 5]) :cleopatra
+    :tuntun))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
