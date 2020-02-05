@@ -34,9 +34,13 @@
   {:level        :medium
    :use          '[loop recur]
    :dont-use     '[reduce]
-   :implemented? false}
-  ([f coll])
-  ([f init coll]))
+   :implemented? true}
+  ([f coll] (reduce' f (first coll) (rest coll)))
+  ([f init coll] (loop [coll coll result init]
+                   (if (empty? coll)
+                     result
+                     (recur (rest coll)
+                            (f result (first coll)))))))
 
 (defn count'
   "Implement your own version of count that counts the
@@ -44,7 +48,7 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[count]
-   :implemented? false}
+   :implemented? true}
   ([coll] (loop [xs coll
                  count 0]
             (if (empty? xs) count
@@ -56,8 +60,9 @@
   {:level        :easy
    :use          '[reduce conj seqable? when]
    :dont-use     '[reverse]
-   :implemented? false}
-  ([coll]))
+   :implemented? true}
+  ([coll]
+  (reduce conj '() coll)))
 
 (defn every?'
   "Implement your own version of every? that checks if every
@@ -65,8 +70,12 @@
   {:level        :easy
    :use          '[loop recur and]
    :dont-use     '[every?]
-   :implemented? false}
-  ([pred coll]))
+   :implemented? true}
+  ([pred coll]
+   (loop [xs coll
+          result true]
+     (if (empty? xs) result
+                     (recur (rest xs) (and result (pred (first xs))))))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
@@ -84,8 +93,9 @@
   {:level        :easy
    :use          '[partition every? partial apply <=]
    :dont-use     '[loop recur]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (every? (partial apply <=) (partition 2 1 coll)))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
@@ -94,8 +104,9 @@
   {:level        :medium
    :use          '[lazy-seq set conj let :optionally letfn]
    :dont-use     '[loop recur distinct]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (lazy-seq (set coll)))
 
 (defn dedupe'
   "Implement your own lazy sequence version of dedupe which returns
@@ -113,8 +124,9 @@
   {:level        :medium
    :use          '[map + rest]
    :dont-use     '[loop recur partition]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (map + coll (rest coll)))
 
 (defn max-three-digit-sequence
   "Given a collection of numbers, find a three digit sequence that
@@ -125,7 +137,11 @@
    :use          '[map next nnext max-key partial apply + if ->>]
    :dont-use     '[loop recur partition]
    :implemented? false}
-  [coll])
+  [coll]
+  (:list (apply max-key :sum (map (fn [a b c] {:sum (+ a b c) :list [a b c]})
+                                  coll
+                                  (next coll)
+                                  (nnext coll)))))
 
 ;; transpose is a def. Not a defn.
 (def
