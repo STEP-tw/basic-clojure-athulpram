@@ -60,3 +60,7 @@
     (is (= :cleopatra (conditions-apply [[2 3] [4 5] [0 0]]))))
   (testing "default case"
     (is (= :tuntun (conditions-apply [])))))
+
+(deftest repeat-and-truncate-test
+  (testing "repeat and truncate"
+    (is (= [0 1 2 3 0 1 2] (repeat-and-truncate (range 4) true true 7)))))
