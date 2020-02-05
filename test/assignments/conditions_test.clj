@@ -73,3 +73,16 @@
   (testing "empty"
     (is (= [] (order-in-words 1 1 1) )))
   )
+
+(deftest zero-aliases-test
+  (testing "[]"
+    (is (= :empty (zero-aliases []))))
+  (testing "'()"
+    (is (= :empty (zero-aliases '()))))
+  (testing "0"
+    (is (= :zero (zero-aliases 0))))
+  (testing "#{}"
+    (is (= :empty-set (zero-aliases #{}))))
+  (testing "others"
+    (is (= :not-zero (zero-aliases 1))))
+  )
