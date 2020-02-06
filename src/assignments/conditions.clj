@@ -149,4 +149,8 @@
   {:level        :easy
    :use          '[as-> reverse]
    :implemented? false}
-  [coll])
+  [coll]
+  (as-> (map (fn [x] (if (instance? Number x)
+                        (inc x)
+                        x)) coll) collection
+        (concat (reverse collection) (cons 0 collection))))

@@ -86,3 +86,9 @@
   (testing "others"
     (is (= :not-zero (zero-aliases 1))))
   )
+
+(deftest zero-separated-palindrome-test
+  (testing "zero-separated-palindrome"
+    (is (= [3 2 0 2 3] (zero-separated-palindrome [1 2]))))
+  (testing "zero-separated-palindrome with string"
+    (is (= ["a" 0 "a"] (zero-separated-palindrome ["a"])))))
