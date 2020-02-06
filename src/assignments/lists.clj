@@ -62,7 +62,7 @@
    :dont-use     '[reverse]
    :implemented? true}
   ([coll]
-  (reduce conj '() coll)))
+   (reduce conj '() coll)))
 
 (defn every?'
   "Implement your own version of every? that checks if every
@@ -201,8 +201,9 @@
   each element repeated twice"
   {:level        :easy
    :use          '[mapcat partial repeat :optionally vector]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll]
+  (mapcat (partial repeat 2) coll))
 
 (defn third-or-fifth
   "Given a collection return a new collection that contains
@@ -211,7 +212,9 @@
    :use          '[keep-indexed when :optionally map-indexed filter]
    :implemented? true}
   [coll]
-  (keep-indexed #(if (or ((fn [x y] (zero? (mod x y))) %1 3) ((fn [x y] (zero? (mod x y))) %1 5)) %2) coll))
+  (keep-indexed #(if (or ((fn [x y] (zero? (mod x y))) %1 3) ((fn [x y] (zero? (mod x y))) %1 5))
+                   %2)
+                coll))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the

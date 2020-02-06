@@ -82,3 +82,7 @@
     (is (= 1 (index-of [1 2 3] 2))))
   (testing "when element is not present"
     (is (= -1 (index-of [1 2 3 1] 4)))))
+
+(deftest double-up-test
+  (testing "numbers to double up"
+    (is (= [1 1 2 2 3 3] (double-up [1 2 3])))))
